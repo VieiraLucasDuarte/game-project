@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.background {
+    background-image: url('../../../assets/svg/blob-haikei.svg');
+    background-size: cover; 
+}
+
+.centralizar {
+    width: 50%;
+    margin: 0 auto;
+}
