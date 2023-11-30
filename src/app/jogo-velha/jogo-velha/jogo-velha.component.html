@@ -1,1 +1,12 @@
-<p>jogo-velha works!</p>
+<div class="background container">
+    <div class="titulo">
+        Jogo da Velha
+    </div>
+    <div class="board">
+        <div *ngFor="let row of board; let i = index" class="row">
+          <div *ngFor="let cell of row; let j = index" class="cell" (click)="selecionarCelula(i, j)">
+            {{ cell }}
+          </div>
+        </div>
+      </div>
+</div>

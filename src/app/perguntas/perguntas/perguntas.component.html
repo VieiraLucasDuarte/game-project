@@ -1,4 +1,16 @@
-<div>
-    <div>Perguntas:</div>
-    <div>respostas     </div>
+<div class="background container">
+    <div class="titulo">
+        Pergunta
+    </div>
+    <label id="example-radio-group-label"> {{ perguntasData.texto }}</label>
+    <div>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="radio-group" [(ngModel)]="selecionado">
+            <mat-radio-button *ngFor="let resposta of perguntasData.respostas" class="radio-button"
+                [value]="resposta.certo">{{resposta.texto}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div>
+        <button class="meu-botao" (click)="reposta()">Responder</button>
+    </div>
 </div>

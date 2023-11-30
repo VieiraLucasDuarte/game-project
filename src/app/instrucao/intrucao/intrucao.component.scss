@@ -1,0 +1,14 @@
+.background {
+    background-image: url(../../../assets/svg/wave-haikei.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
