@@ -1,14 +1,14 @@
-<div class="background container">
-    <div class="titulo">
-        Jogo da Velha
-    </div>
-    <div class="col">
-        <button routerLink="/velha" class="meu-botao">Velha jogo</button>
-    </div>
-    <div class="col">
-        <button routerLink="/perguntas" class="meu-botao">Perguntas</button>
-    </div>
-    <div class="col">
-        <button routerLink="/instrucao" class="meu-botao">Instruções</button>
+<div class="background titulo">
+    Jogo da Velha
+    <div class="container">
+        <div class="col">
+            <button routerLink="/perguntas" class="meu-botao">Velha jogo</button>
+        </div>
+        <div class="col">
+            <button routerLink="/perguntas" [disabled]="true" class="meu-botao">Perguntas</button>
+        </div>
+        <div class="col">
+            <button routerLink="/instrucao" class="meu-botao">Instruções</button>
+        </div>
     </div>
 </div>

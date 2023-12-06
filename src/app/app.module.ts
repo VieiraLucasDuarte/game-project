@@ -14,6 +14,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { ValidacaoComponent } from './perguntas/perguntas/validacao/validacao/validacao.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { IntrucaoComponent } from './instrucao/intrucao/intrucao.component';
+import { FimDeGameComponent } from './jogo-velha/jogo-velha/FimDeGame/fim-de-game/fim-de-game.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PerguntasService } from './perguntas/perguntas/perguntas.service';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,10 @@ import { IntrucaoComponent } from './instrucao/intrucao/intrucao.component';
     PerguntasComponent,
     ValidacaoComponent,
     IntrucaoComponent,
+    FimDeGameComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -34,7 +39,7 @@ import { IntrucaoComponent } from './instrucao/intrucao/intrucao.component';
     MatButtonModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [PerguntasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

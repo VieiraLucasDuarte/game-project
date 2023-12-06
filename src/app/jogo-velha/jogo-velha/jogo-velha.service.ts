@@ -24,7 +24,7 @@ export class GameService {
     playMove(row: number, col: number): void {
         if (!this.board[row][col]) {
             this.board[row][col] = this.currentPlayer;
-            this.switchPlayer(); // Alternar para o próximo jogador após a jogada
+            this.switchPlayer();
         }
     }
 
@@ -40,5 +40,14 @@ export class GameService {
 
     getSelectedCell(): { row: number, col: number } | null {
         return this.selectedCell;
+    }
+
+    saveNextPlayer(): void {
+        sessionStorage.setItem('nextPlayer', this.currentPlayer);
+    }
+
+    getCurrent(): 'X' | 'O' {
+        const nextPlayer = sessionStorage.getItem('nextPlayer');
+        return nextPlayer ? nextPlayer as 'X' | 'O' : 'X';
     }
 }

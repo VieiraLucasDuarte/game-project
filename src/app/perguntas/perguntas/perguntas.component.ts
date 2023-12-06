@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GameService } from 'src/app/jogo-velha/jogo-velha/jogo-velha.service';
 import { ValidacaoComponent } from './validacao/validacao/validacao.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PerguntasService } from './perguntas.service';
 
 @Component({
   selector: 'app-perguntas',
@@ -12,64 +13,41 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class PerguntasComponent implements OnInit {
 
-  perguntasData!: Pergunta;
-  selecionado!: string
+  perguntasData: Pergunta[] = [];
+  selecionado!: string;
+  player: string = 'X';
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private gameService: GameService,
-    private dialog: MatDialog
-    ) { }
+    private dialog: MatDialog,
+    private service: PerguntasService
+  ) { }
 
 
-ngOnInit(): void {
-  const selectedCell = this.gameService.getSelectedCell();
-  this.prencher();
-}
+  ngOnInit(): void {
+    const selectedCell = this.gameService.getSelectedCell();
+    const nextPlayer = sessionStorage.getItem('nextPlayer');
+    console.log(nextPlayer, ' comecar');
+    this.player = nextPlayer as 'X' | 'O';
+    this.carregarPerguntas();
+  }
 
-reposta() {
-  if(this.selecionado)
-    this.router.navigate(["/velha"]);
-  else
-  {
-    const dialogRef = this.dialog.open(ValidacaoComponent, {
-      width: '400px'
+  reposta() {
+    if (this.selecionado)
+      this.router.navigate(["/velha"]);
+    else {
+      const dialogRef = this.dialog.open(ValidacaoComponent)
+      dialogRef.afterClosed().subscribe(result => {
+        this.carregarPerguntas()
+      })
+    }
+  }
+
+  carregarPerguntas() {
+    this.service.getPerguntas().subscribe((data: any[]) => {
+      console.log(data)
+      this.perguntasData = data
     })
   }
-    // this.router.navigate(["/"]);
-}
-
-prencher() {
-  const perguntas: Pergunta = {
-    id: 1,
-    texto: "Onde joga o Metal",
-    respostas: [
-      {
-        id: 1,
-        texto: "Amarelo",
-        certo: true,
-        pergunta: 1,
-      },
-      {
-        id: 2,
-        texto: "Azul",
-        certo: false,
-        pergunta: 1
-      },
-      {
-        id: 3,
-        texto: "Vermelho",
-        certo: false,
-        pergunta: 1
-      },      {
-        id: 4,
-        texto: "Verde",
-        certo: false,
-        pergunta: 1
-      }
-    ]
-  }
-  this.perguntasData = perguntas;
-}
-  
 }

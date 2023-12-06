@@ -1,13 +1,13 @@
 export interface Pergunta {
-    id: number;
-    texto: string;
-    respostas: Reposta[];
+    Id: number;
+    Descricao: string;
+    Respostas: Reposta[];
 }
 
 
 export interface Reposta {
-    id: number;
-    texto: string;
-    certo: boolean;
-    pergunta: number;
+    Id: number;
+    Descricao: string;
+    Certa: string;
+    PerguntaId: number;
 }
