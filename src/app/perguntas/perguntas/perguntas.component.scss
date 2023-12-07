@@ -17,6 +17,15 @@
     padding-bottom: 50px;
 }
 
+.label {
+    width: 50rem;
+    display: flex;
+    justify-content: right;
+    padding-top: 50px;
+    color: #070c0b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
 .container {
     display: flex;
     flex-direction: column;

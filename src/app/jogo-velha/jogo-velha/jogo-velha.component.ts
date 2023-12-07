@@ -11,6 +11,8 @@ import { FimDeGameComponent } from './FimDeGame/fim-de-game/fim-de-game.componen
 })
 export class JogoVelhaComponent {
   board: string[][] = [];
+  vencedor!: string;
+  mensagem!: string;
   currentPlayer: 'X' | 'O' = 'X';
 
   constructor(private gameService: GameService, private router: Router, public dialog: MatDialog) { }
@@ -22,16 +24,7 @@ export class JogoVelhaComponent {
 
   selecionarCelula(row: number, col: number): void {
     const currentPlayer = this.gameService.getCurrentPlayer();
-    console.log(currentPlayer, 'player')
-    if (currentPlayer === "X") {
-      sessionStorage.setItem('nextPlayer', "O");
-      console.log(currentPlayer, 'if')
-    }
-    else {
-      sessionStorage.setItem('nextPlayer', "X");
-      console.log(currentPlayer, 'else')
-    }
-
+    this.vencedor = currentPlayer;
     if (!this.board[row][col]) {
       this.board[row][col] = currentPlayer;
       this.gameService.setSelectedCell(row, col);
@@ -57,12 +50,12 @@ export class JogoVelhaComponent {
 
   verificarDiagonal() {
     if (this.board[0][0] !== '' && this.board[0][0] === this.board[1][1] && this.board[1][1] === this.board[2][2]) {
-      console.log('ganhou')
+      this.mensagem = "O jogador " + this.vencedor + " ganhou o jogo";
       return true;
     }
 
     if (this.board[0][2] !== '' && this.board[0][2] === this.board[1][1] && this.board[1][1] === this.board[2][0]) {
-      console.log('Ganhou na diagonal secundária');
+      this.mensagem = "O jogador " + this.vencedor + " ganhou o jogo";
       return true;
     }
     return false;
@@ -71,7 +64,7 @@ export class JogoVelhaComponent {
   verificarColunas() {
     for (let i = 0; i < 3; i++) {
       if (this.board[i][0] !== '' && this.board[i][0] === this.board[i][1] && this.board[i][1] === this.board[i][2]) {
-        console.log('Ganhou na linha', i + 1);
+        this.mensagem = "O jogador " + this.vencedor + " ganhou o jogo";
         return true;
       }
     }
@@ -81,7 +74,7 @@ export class JogoVelhaComponent {
   verificarLinhas() {
     for (let i = 0; i < 3; i++) {
       if (this.board[0][i] !== '' && this.board[0][i] === this.board[1][i] && this.board[1][i] === this.board[2][i]) {
-        console.log('Ganhou na coluna', i + 1);
+        this.mensagem = "O jogador " + this.vencedor + " ganhou o jogo";
         return true;
       }
     }
@@ -92,16 +85,19 @@ export class JogoVelhaComponent {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (this.board[i][j] === '') {
-          console.log("empatado")
           return null;
         }
       }
     }
-    console.log('acabou');
+    this.mensagem = "O jogo deu Empate"
     return true;
   }
 
-  openDialg() {
-    this.dialog.open(FimDeGameComponent)
+  openDialg(): void {
+    const dialogRef = this.dialog.open(FimDeGameComponent, {
+      data: {
+        mensagem: this.mensagem
+      }
+    });
   }
 }

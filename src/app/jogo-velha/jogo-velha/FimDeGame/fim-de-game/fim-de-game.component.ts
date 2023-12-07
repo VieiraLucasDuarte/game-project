@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 })
 export class FimDeGameComponent {
 
-  constructor(private dialogRef: MatDialogRef<FimDeGameComponent>, private router: Router) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<FimDeGameComponent>, private router: Router) { }
 
   closeModal() {
     this.dialogRef.close();

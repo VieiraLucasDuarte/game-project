@@ -16,8 +16,8 @@ export class PerguntasComponent implements OnInit {
   perguntasData: Pergunta[] = [];
   perguntaDaVez!: Pergunta;
   selecionado!: string;
-  player: string = 'X';
   index!: number;
+  currentPlayer!: string;
 
   constructor(
     private router: Router,
@@ -30,6 +30,7 @@ export class PerguntasComponent implements OnInit {
   ngOnInit(): void {
     const selectedCell = this.gameService.getSelectedCell();
     this.carregarPerguntas();
+    this.currentPlayer = this.gameService.getCurrentPlayer()
   }
 
   reposta() {
@@ -37,6 +38,8 @@ export class PerguntasComponent implements OnInit {
       this.router.navigate(["/velha"]);
     }
     else {
+      this.gameService.switchPlayer();
+      this.currentPlayer = this.gameService.getCurrentPlayer()
       const dialogRef = this.dialog.open(ValidacaoComponent)
       dialogRef.afterClosed().subscribe(result => {
         this.carregarPerguntas()
