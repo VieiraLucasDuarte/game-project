@@ -14,8 +14,10 @@ import { PerguntasService } from './perguntas.service';
 export class PerguntasComponent implements OnInit {
 
   perguntasData: Pergunta[] = [];
+  perguntaDaVez!: Pergunta;
   selecionado!: string;
   player: string = 'X';
+  index!: number;
 
   constructor(
     private router: Router,
@@ -27,15 +29,13 @@ export class PerguntasComponent implements OnInit {
 
   ngOnInit(): void {
     const selectedCell = this.gameService.getSelectedCell();
-    const nextPlayer = sessionStorage.getItem('nextPlayer');
-    console.log(nextPlayer, ' comecar');
-    this.player = nextPlayer as 'X' | 'O';
     this.carregarPerguntas();
   }
 
   reposta() {
-    if (this.selecionado)
+    if (this.selecionado == "S") {
       this.router.navigate(["/velha"]);
+    }
     else {
       const dialogRef = this.dialog.open(ValidacaoComponent)
       dialogRef.afterClosed().subscribe(result => {
@@ -46,8 +46,10 @@ export class PerguntasComponent implements OnInit {
 
   carregarPerguntas() {
     this.service.getPerguntas().subscribe((data: any[]) => {
-      console.log(data)
       this.perguntasData = data
+      const random = Math.floor(Math.random() * this.perguntasData.length);
+      this.index = random
+      this.perguntaDaVez = this.perguntasData[random];
     })
   }
 }

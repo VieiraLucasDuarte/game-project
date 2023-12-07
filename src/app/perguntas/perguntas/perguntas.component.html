@@ -2,17 +2,16 @@
     <div class="titulo">
         Pergunta
     </div>
-    <div *ngFor="let pergunta of perguntasData">
-        <label id="example-radio-group-label"> {{ pergunta.Descricao }}</label>
+    <div *ngIf="perguntaDaVez">
+        <label id="example-radio-group-label"> {{ perguntaDaVez.descricao }}</label>
         <div>
             <mat-radio-group aria-labelledby="example-radio-group-label" class="radio-group" [(ngModel)]="selecionado">
-                <mat-radio-button *ngFor="let resposta of pergunta.Respostas" class="radio-button"
-                    [value]="resposta.Id">{{resposta.Descricao}}
+                <mat-radio-button *ngFor="let resposta of perguntaDaVez.respostas" class="radio-button"
+                    [value]="resposta.certa">{{resposta.descricao}}
                 </mat-radio-button>
             </mat-radio-group>
         </div>
     </div>
-    <div class="player">Vez do jogador {{ player }}</div>
     <div>
         <button class="meu-botao" (click)="reposta()">Responder</button>
     </div>
